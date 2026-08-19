@@ -91,27 +91,32 @@ description: 时家奇门遁甲转盘法 CLI 工具。根据公历时间自动�
 
 **总结：时间 + 主题 + 方位 + 年命，是起盘前最起码应确认的四项信息。**
 
-## 项目路径
+## 安装说明
 
-源码与可执行文件位于：
-
-```
-C:/Users/22569/Documents/Study/QimenDj
-```
-
-全局可执行文件位于：
-
-```
-C:/Users/22569/.local/bin/qimen.exe
-```
-
-如果 `qimen.exe` 不存在，先构建：
+本 skill 依赖 `qimen` 命令行工具。使用前先确认当前环境是否可用：
 
 ```bash
-cd "C:/Users/22569/Documents/Study/QimenDj"
-go build -o qimen.exe ./cmd/qimen
-copy qimen.exe C:\Users\22569\.local\bin\qimen.exe
+qimen plate -t now -f json
 ```
+
+如果命令不存在，在当前项目目录下构建并安装：
+
+```bash
+# 构建
+go build -o qimen.exe ./cmd/qimen
+
+# Windows：安装到用户级 bin 目录
+mkdir -p "%USERPROFILE%\.local\bin"
+copy qimen.exe "%USERPROFILE%\.local\bin\qimen.exe"
+
+# Linux / macOS：安装到用户级 bin 目录
+mkdir -p ~/.local/bin
+cp qimen ~/.local/bin/
+```
+
+然后确保 `~/.local/bin`（或 Windows 下的 `%USERPROFILE%\.local\bin`）已加入系统 `PATH`。
+
+> 路径中的 `%USERPROFILE%` 和 `~` 分别表示当前用户主目录，不针对特定用户名，具有通用性。
 
 ## 命令
 

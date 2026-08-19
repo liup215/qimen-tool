@@ -81,6 +81,8 @@
   - 补充马星双显说明
   - 安装说明改为优先从 GitHub Release 下载预编译二进制，并保留自行编译作为备选
 - [x] 新增 GitHub Actions workflow（`.github/workflows/release.yml`）：push `v*` tag 后自动编译 Windows / Linux / macOS（Intel & Apple Silicon）二进制，并自动创建 Release 上传产物
+- [x] 修复 `.gitignore`：原 `qimen` 规则误将整个 `cmd/qimen` 目录忽略，改为 `/qimen` 仅忽略根目录构建产物，并补提交 `cmd/qimen/main.go`
+- [x] 成功发布首个 Release：`v0.1.0`，包含 4 个平台预编译二进制，latest 下载链接已可用
 
 ## 已知问题
 - 奇门遁甲流派众多（转盘/飞盘、拆补/置闰、超神/接气等），当前实现为：时家奇门转盘法 + 拆补法 + 中五寄坤二宫。

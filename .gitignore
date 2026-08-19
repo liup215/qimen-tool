@@ -26,5 +26,5 @@ vendor/
 Thumbs.db
 
 # Project specific
-qimen
+/qimen
 qimen.exe

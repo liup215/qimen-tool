@@ -152,7 +152,9 @@ func KongWang(xunShou string) string {
 	return ""
 }
 
-// MaXing 根据日支或时支计算马星（这里用日支）
+// MaXing 根据地支三合局计算驿马。
+// 口诀：申子辰马在寅，寅午戌马在申，巳酉丑马在亥，亥卯未马在巳。
+// 时家奇门主流以时支取马星，亦可以日支取马星作辅助参考。
 func MaXing(zhi string) string {
 	switch zhi {
 	case "申", "子", "辰":

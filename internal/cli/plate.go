@@ -44,7 +44,7 @@ func PlateToMarkdown(p *models.Plate) string {
 	sb.WriteString(fmt.Sprintf("- 四柱：%s 年 %s 月 %s 日 %s 时\n", p.YearGanZhi, p.MonthGanZhi, p.DayGanZhi, p.HourGanZhi))
 	sb.WriteString(fmt.Sprintf("- 节气：%s\n", p.JieQi))
 	sb.WriteString(fmt.Sprintf("- 定局：%s %d 局\n", p.Dun, p.Bureau))
-	sb.WriteString(fmt.Sprintf("- 旬首：%s，空亡：%s，马星：%s\n", p.XunShou, p.KongWang, p.MaXing))
+	sb.WriteString(fmt.Sprintf("- 旬首：%s，空亡：%s，马星：%s（时支马），日支马：%s\n", p.XunShou, p.KongWang, p.MaXing, p.DayMaXing))
 	sb.WriteString(fmt.Sprintf("- 值符：%s 在 %d 宫，值使：%s 在 %d 宫\n", p.ZhiFuStar, p.ZhiFuPalace, p.ZhiShiDoor, p.ZhiShiPalace))
 	sb.WriteString(fmt.Sprintf("- 日干 %s 在 %d 宫，时干 %s 在 %d 宫\n", dayStemOf(p.DayGanZhi), p.DayStemIndex, hourStemOf(p.HourGanZhi), p.HourStemIndex))
 	sb.WriteString(fmt.Sprintf("- 规则集：%s，%s\n\n", p.RuleSetVersion, p.CenterPalace))

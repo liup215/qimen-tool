@@ -80,9 +80,11 @@ func BuildPlate(t time.Time) (*models.Plate, error) {
 		kongWangSet[string(r)] = true
 	}
 
-	// 马星
+	// 马星：时支马为主流，日支马为辅助参考
 	_, dayZhi := calendar.SplitGanZhi(dayGZ)
-	maXing := MaXing(dayZhi)
+	_, hourZhi = calendar.SplitGanZhi(hourGZ)
+	maXing := MaXing(hourZhi)
+	dayMaXing := MaXing(dayZhi)
 
 	plate := &models.Plate{
 		SolarTime:      t.Format("2006-01-02 15:04:05"),
@@ -103,6 +105,7 @@ func BuildPlate(t time.Time) (*models.Plate, error) {
 		ZhiShiPalace:   zhiShiPalace,
 		KongWang:       kongWang,
 		MaXing:         maXing,
+		DayMaXing:      dayMaXing,
 		DoorIndex:      make(map[string]int),
 		StarIndex:      make(map[string]int),
 		SpiritIndex:    make(map[string]int),
@@ -131,7 +134,8 @@ func BuildPlate(t time.Time) (*models.Plate, error) {
 			Star:        stars[pnum],
 			Spirit:      spirits[pnum],
 			IsKongWang:  isKongWang,
-			HasMaXing:   strings.Contains(branch, maXing),
+			HasMaXing:    strings.Contains(branch, maXing),
+			HasDayMaXing: strings.Contains(branch, dayMaXing),
 		}
 		plate.Palaces[i] = p
 

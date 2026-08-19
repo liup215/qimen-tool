@@ -26,8 +26,9 @@ type goldenCase struct {
 	wantZhiFuPal  int
 	wantZhiShi    string
 	wantZhiShiPal int
-	wantKongWang  string
-	wantMaXing    string
+	wantKongWang   string
+	wantMaXing     string // 时支马（主流）
+	wantDayMaXing  string // 日支马（辅助）
 }
 
 var goldenCases = []goldenCase{
@@ -45,6 +46,7 @@ var goldenCases = []goldenCase{
 		wantZhiShiPal: 4,
 		wantKongWang:  "申酉",
 		wantMaXing:    "巳",
+		wantDayMaXing: "巳",
 	},
 	{
 		name:          "2017-05-04 谷雨阳遁8局",
@@ -59,7 +61,8 @@ var goldenCases = []goldenCase{
 		wantZhiShi:    "死",
 		wantZhiShiPal: 4,
 		wantKongWang:  "辰巳",
-		wantMaXing:    "巳",
+		wantMaXing:    "寅",
+		wantDayMaXing: "巳",
 	},
 	{
 		name:          "2016-07-31 大暑阴遁1局",
@@ -74,7 +77,8 @@ var goldenCases = []goldenCase{
 		wantZhiShi:    "休",
 		wantZhiShiPal: 1,
 		wantKongWang:  "戌亥",
-		wantMaXing:    "申",
+		wantMaXing:    "亥",
+		wantDayMaXing: "申",
 	},
 	{
 		name:          "2024-02-04 大寒阳遁3局",
@@ -89,7 +93,8 @@ var goldenCases = []goldenCase{
 		wantZhiShi:    "生",
 		wantZhiShiPal: 2,
 		wantKongWang:  "子丑",
-		wantMaXing:    "申",
+		wantMaXing:    "亥",
+		wantDayMaXing: "申",
 	},
 	{
 		name:          "2023-12-22 冬至阳遁7局",
@@ -105,6 +110,7 @@ var goldenCases = []goldenCase{
 		wantZhiShiPal: 4,
 		wantKongWang:  "戌亥",
 		wantMaXing:    "申",
+		wantDayMaXing: "申",
 	},
 }
 
@@ -140,7 +146,10 @@ func TestGoldenCases(t *testing.T) {
 				t.Errorf("空亡 = %s, want %s", p.KongWang, tc.wantKongWang)
 			}
 			if p.MaXing != tc.wantMaXing {
-				t.Errorf("马星 = %s, want %s", p.MaXing, tc.wantMaXing)
+				t.Errorf("时支马星 = %s, want %s", p.MaXing, tc.wantMaXing)
+			}
+			if p.DayMaXing != tc.wantDayMaXing {
+				t.Errorf("日支马星 = %s, want %s", p.DayMaXing, tc.wantDayMaXing)
 			}
 
 			// 同时运行 verify 自检链

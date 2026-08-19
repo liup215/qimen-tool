@@ -315,7 +315,10 @@ func analyzeSubject(p models.Palace, symbol, monthZhi string) SubjectState {
 		notes = append(notes, "空亡")
 	}
 	if p.HasMaXing {
-		notes = append(notes, "马星")
+		notes = append(notes, "时马")
+	}
+	if p.HasDayMaXing {
+		notes = append(notes, "日马")
 	}
 	if palaceHasZhi(p, rules.Patterns.RuMu[p.HeavenStem]) {
 		notes = append(notes, fmt.Sprintf("%s入墓", p.HeavenStem))

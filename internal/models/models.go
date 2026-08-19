@@ -19,7 +19,8 @@ type Plate struct {
 	ZhiShiDoor     string         `json:"zhi_shi_door"`    // 值使门
 	ZhiShiPalace   int            `json:"zhi_shi_palace"`  // 值使落宫
 	KongWang       string         `json:"kong_wang"`       // 空亡
-	MaXing         string         `json:"ma_xing"`         // 马星
+	MaXing         string         `json:"ma_xing"`         // 马星（时支马，主流时家奇门用法）
+	DayMaXing      string         `json:"day_ma_xing"`     // 日支马（辅助参考）
 	DayStemIndex   int            `json:"day_stem_index"`  // 日干落宫
 	HourStemIndex  int            `json:"hour_stem_index"` // 时干落宫
 	DoorIndex      map[string]int `json:"door_index"`      // 八门 → 宫
@@ -41,8 +42,9 @@ type Palace struct {
 	Door         string `json:"door"`          // 八门
 	Star         string `json:"star"`          // 九星
 	Spirit       string `json:"spirit"`        // 八神
-	IsKongWang   bool   `json:"is_kong_wang"`  // 是否空亡
-	HasMaXing    bool   `json:"has_ma_xing"`   // 是否马星
+	IsKongWang     bool   `json:"is_kong_wang"`    // 是否空亡
+	HasMaXing      bool   `json:"has_ma_xing"`     // 是否时支马星（主流）
+	HasDayMaXing   bool   `json:"has_day_ma_xing"` // 是否日支马星（辅助）
 }
 
 // GanZhi 表示一个干支

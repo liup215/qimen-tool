@@ -84,3 +84,48 @@ func TestInterpret_UnknownTopic(t *testing.T) {
 		t.Errorf("unknown topic should fallback to general, got %s", report.Meta.QuestionType)
 	}
 }
+
+// TestInterpret_DayStemJia 验证日干为甲时按旬首遁干定位（甲戌日甲遁于己）
+func TestInterpret_DayStemJia(t *testing.T) {
+	tm := beijingTime(2026, 8, 28, 15, 30, 0)
+	p, err := plate.BuildPlate(tm)
+	if err != nil {
+		t.Fatalf("BuildPlate failed: %v", err)
+	}
+
+	report, err := interpretation.Interpret(p, "travel")
+	if err != nil {
+		t.Fatalf("Interpret failed: %v", err)
+	}
+
+	if report.Self.Symbol != "日干甲（遁己）" {
+		t.Errorf("self symbol = %s, want 日干甲（遁己）", report.Self.Symbol)
+	}
+	if report.Self.Palace != 4 {
+		t.Errorf("self palace = %d, want 4", report.Self.Palace)
+	}
+	if report.Target.Symbol != "景门" {
+		t.Errorf("target symbol = %s, want 景门", report.Target.Symbol)
+	}
+}
+
+// TestInterpret_HourStemJia 验证时干为甲时按旬首遁干定位（甲子时甲遁于戊）
+func TestInterpret_HourStemJia(t *testing.T) {
+	tm := beijingTime(2026, 8, 28, 0, 0, 0)
+	p, err := plate.BuildPlate(tm)
+	if err != nil {
+		t.Fatalf("BuildPlate failed: %v", err)
+	}
+
+	report, err := interpretation.Interpret(p, "general")
+	if err != nil {
+		t.Fatalf("Interpret failed: %v", err)
+	}
+
+	if report.Target.Symbol != "时干甲（遁戊）" {
+		t.Errorf("target symbol = %s, want 时干甲（遁戊）", report.Target.Symbol)
+	}
+	if report.Target.Palace != 7 {
+		t.Errorf("target palace = %d, want 7", report.Target.Palace)
+	}
+}

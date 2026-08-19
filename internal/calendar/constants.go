@@ -101,3 +101,26 @@ func SplitGanZhi(gz string) (gan, zhi string) {
 	}
 	return string(runes[0]), string(runes[1])
 }
+
+// XunShou 返回指定干支所在旬的旬首（如甲戌日返回甲戌）
+func XunShou(gz string) string {
+	idx := GanZhiIndex(gz)
+	if idx < 0 {
+		return ""
+	}
+	xunIdx := (idx / 10) * 10
+	return IndexToGanZhi(xunIdx)
+}
+
+// DunGan 返回六甲旬首所遁六仪（甲子戊、甲戌己、甲申庚、甲午辛、甲辰壬、甲寅癸）
+func DunGan(xunShou string) string {
+	mapping := map[string]string{
+		"甲子": "戊",
+		"甲戌": "己",
+		"甲申": "庚",
+		"甲午": "辛",
+		"甲辰": "壬",
+		"甲寅": "癸",
+	}
+	return mapping[xunShou]
+}

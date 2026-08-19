@@ -169,9 +169,16 @@ func Interpret(plate *models.Plate, topic string) (*Report, error) {
 	}
 
 	dayGan, _ := calendar.SplitGanZhi(plate.DayGanZhi)
-	selfPalace := findStemPalace(plate, dayGan)
+	selfStem := dayGan
+	selfSymbol := "日干" + dayGan
+	if dayGan == "甲" {
+		xunShou := calendar.XunShou(plate.DayGanZhi)
+		selfStem = calendar.DunGan(xunShou)
+		selfSymbol = fmt.Sprintf("日干甲（遁%s）", selfStem)
+	}
+	selfPalace := findStemPalace(plate, selfStem)
 	if selfPalace < 0 {
-		return nil, fmt.Errorf("日干 %s 未找到落宫", dayGan)
+		return nil, fmt.Errorf("日干 %s 未找到落宫", selfSymbol)
 	}
 
 	targetSymbol, targetPalace := resolveTarget(plate, topic)
@@ -182,7 +189,7 @@ func Interpret(plate *models.Plate, topic string) (*Report, error) {
 	selfP := plate.Palaces[selfPalace-1]
 	targetP := plate.Palaces[targetPalace-1]
 
-	selfState := analyzeSubject(selfP, "日干"+dayGan, monthZhi)
+	selfState := analyzeSubject(selfP, selfSymbol, monthZhi)
 	targetState := analyzeSubject(targetP, targetSymbol, monthZhi)
 
 	rel := analyzeRelationship(selfP, targetP)
@@ -231,11 +238,20 @@ func resolveTarget(plate *models.Plate, topic string) (string, int) {
 	case "study":
 		return "天辅", findStarPalace(plate, "天辅")
 	case "lost", "general":
-		hourGan, _ := calendar.SplitGanZhi(plate.HourGanZhi)
-		return "时干" + hourGan, findStemPalace(plate, hourGan)
+		return resolveHourStemTarget(plate)
 	}
 	// 默认用时干
+	return resolveHourStemTarget(plate)
+}
+
+// resolveHourStemTarget 解析时干用神；当时干为甲时按旬首遁干定位
+func resolveHourStemTarget(plate *models.Plate) (string, int) {
 	hourGan, _ := calendar.SplitGanZhi(plate.HourGanZhi)
+	if hourGan == "甲" {
+		xunShou := calendar.XunShou(plate.HourGanZhi)
+		dun := calendar.DunGan(xunShou)
+		return fmt.Sprintf("时干甲（遁%s）", dun), findStemPalace(plate, dun)
+	}
 	return "时干" + hourGan, findStemPalace(plate, hourGan)
 }
 

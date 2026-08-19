@@ -79,6 +79,8 @@
   - 增加起盘前必须确认的信息清单（时间、主题、方位、年命、相关人物等）
   - 将项目路径改为通用写法（`%USERPROFILE%`、`~/.local/bin`）
   - 补充马星双显说明
+  - 安装说明改为优先从 GitHub Release 下载预编译二进制，并保留自行编译作为备选
+- [x] 新增 GitHub Actions workflow（`.github/workflows/release.yml`）：push `v*` tag 后自动编译 Windows / Linux / macOS（Intel & Apple Silicon）二进制，并自动创建 Release 上传产物
 
 ## 已知问题
 - 奇门遁甲流派众多（转盘/飞盘、拆补/置闰、超神/接气等），当前实现为：时家奇门转盘法 + 拆补法 + 中五寄坤二宫。

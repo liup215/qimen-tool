@@ -99,7 +99,34 @@ description: 时家奇门遁甲转盘法 CLI 工具。根据公历时间自动�
 qimen plate -t now -f json
 ```
 
-如果命令不存在，在当前项目目录下构建并安装：
+### 方式一：从 Release 下载预编译二进制（推荐）
+
+GitHub Release 已提供 Windows / Linux / macOS 的预编译二进制，下载对应版本后放到 `PATH` 即可：
+
+```bash
+# Windows (PowerShell)
+mkdir -Force "$env:USERPROFILE\.local\bin"
+Invoke-WebRequest -Uri "https://github.com/liup215/qimen-tool/releases/latest/download/qimen-windows-amd64.exe" -OutFile "$env:USERPROFILE\.local\bin\qimen.exe"
+
+# Linux
+mkdir -p ~/.local/bin
+curl -L -o ~/.local/bin/qimen https://github.com/liup215/qimen-tool/releases/latest/download/qimen-linux-amd64
+chmod +x ~/.local/bin/qimen
+
+# macOS (Intel)
+mkdir -p ~/.local/bin
+curl -L -o ~/.local/bin/qimen https://github.com/liup215/qimen-tool/releases/latest/download/qimen-darwin-amd64
+chmod +x ~/.local/bin/qimen
+
+# macOS (Apple Silicon)
+mkdir -p ~/.local/bin
+curl -L -o ~/.local/bin/qimen https://github.com/liup215/qimen-tool/releases/latest/download/qimen-darwin-arm64
+chmod +x ~/.local/bin/qimen
+```
+
+### 方式二：自行编译安装
+
+如果 Release 没有你需要的平台，或者想基于源码构建：
 
 ```bash
 # 构建
@@ -114,7 +141,9 @@ mkdir -p ~/.local/bin
 cp qimen ~/.local/bin/
 ```
 
-然后确保 `~/.local/bin`（或 Windows 下的 `%USERPROFILE%\.local\bin`）已加入系统 `PATH`。
+### 配置 PATH
+
+确保 `~/.local/bin`（或 Windows 下的 `%USERPROFILE%\.local\bin`）已加入系统 `PATH`。
 
 > 路径中的 `%USERPROFILE%` 和 `~` 分别表示当前用户主目录，不针对特定用户名，具有通用性。
 
